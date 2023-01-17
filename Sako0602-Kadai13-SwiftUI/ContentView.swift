@@ -7,27 +7,34 @@
 
 import SwiftUI
 
+struct Item {
+    let id = UUID()
+    let name: String
+    let isChecked: Bool
+}
+
 struct ContentView: View {
 
    private let fruits = [
-        "りんご": false,
-        "みかん": true,
-        "バナナ": false,
-        "パイナップル": true,
+        Item(name: "りんご", isChecked: false),
+        Item(name: "みかん", isChecked: true),
+        Item(name: "バナナ", isChecked: false),
+        Item(name: "パイナップル", isChecked: true),
+        Item(name: "パイナップル", isChecked: false),
     ]
 
     var body: some View {
         List {
-            ForEach(fruits.sorted{ $0.key < $1.key}, id: \.key) { element in
-                
+            ForEach(fruits, id: \.id) { element in
                 HStack {
                     Image(
-                        systemName: element.value
+                        systemName: element.isChecked
                           ? "checkmark"
                           : ""
                     )
-                    
-                    Text(element.key)
+                    .frame(width: 30, height: 30)
+
+                    Text(element.name)
                     
                 }
             }
